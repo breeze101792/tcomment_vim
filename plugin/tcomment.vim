@@ -1,4 +1,4 @@
-" tComment.vim -- An easily extensible & universal comment plugin 
+" tComment.vim -- An easily extensible & universal comment plugin
 " @Author:      Tom Link (micathom AT gmail com)
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     27-Dez-2004.
@@ -23,13 +23,13 @@ if !exists('g:tcomment_maps')
 endif
 
 if !exists("g:tcomment_mapleader1")
-    " g:tcomment_mapleader1 should be a shortcut that can be used with 
+    " g:tcomment_mapleader1 should be a shortcut that can be used with
     " map, imap, vmap.
     let g:tcomment_mapleader1 = '<c-_>' "{{{2
 endif
 
 if !exists("g:tcomment_mapleader2")
-    " g:tcomment_mapleader2 should be a shortcut that can be used with 
+    " g:tcomment_mapleader2 should be a shortcut that can be used with
     " map, xmap.
     let g:tcomment_mapleader2 = '<Leader>_' "{{{2
 endif
@@ -65,9 +65,9 @@ endif
 
 
 " :display: :[range]TComment[!] ?ARGS...
-" If there is a visual selection that begins and ends in the same line, 
+" If there is a visual selection that begins and ends in the same line,
 " then |:TCommentInline| is used instead.
-" The optional range defaults to the current line. With a bang '!', 
+" The optional range defaults to the current line. With a bang '!',
 " always comment the line.
 "
 " ARGS... are either (see also |tcomment#Comment()|):
@@ -83,12 +83,12 @@ command! -bar -bang -range -nargs=* -complete=customlist,tcomment#complete#Args 
 " ARGS... are either (see also |tcomment#Comment()|):
 "   1. a list of key=value pairs
 "   2. 1-2 values for: ?commentBegin, ?commentEnd
-command! -bar -bang -complete=customlist,tcomment#complete#Complete -range -nargs=+ TCommentAs 
+command! -bar -bang -complete=customlist,tcomment#complete#Complete -range -nargs=+ TCommentAs
             \ call tcomment#CommentAs(<line1>, <line2>, "<bang>", <f-args>)
 
 " :display: :[range]TCommentRight[!] ?ARGS...
-" Comment the text to the right of the cursor. If a visual selection was 
-" made (be it block-wise or not), all lines are commented out at from 
+" Comment the text to the right of the cursor. If a visual selection was
+" made (be it block-wise or not), all lines are commented out at from
 " the current cursor position downwards.
 " With a bang '!', always comment the line.
 "
@@ -99,7 +99,7 @@ command! -bar -bang -range -nargs=* -complete=customlist,tcomment#complete#Args 
             \ keepjumps call tcomment#Comment(<line1>, <line2>, 'R', "<bang>", <f-args>)
 
 " :display: :[range]TCommentBlock[!] ?ARGS...
-" Comment as "block", e.g. use the {&ft}_block comment style. The 
+" Comment as "block", e.g. use the {&ft}_block comment style. The
 " commented text isn't indented or reformated.
 " With a bang '!', always comment the line.
 "
@@ -131,39 +131,41 @@ command! -bar -bang -range -nargs=* -complete=customlist,tcomment#complete#Args 
 
 " command! -range TCommentMap call tcomment#ResetOption() | <args>
 
-noremap <Plug>TComment_<c-_><c-_> :TComment<cr>
-vnoremap <Plug>TComment_<c-_><c-_> :TCommentMaybeInline<cr>
-inoremap <Plug>TComment_<c-_><c-_> <c-o>:TComment<cr>
-noremap <Plug>TComment_<c-_>p m`vip:TComment<cr>``
-inoremap <Plug>TComment_<c-_>p <c-o>:norm! m`vip<cr>:TComment<cr><c-o>``
-noremap <Plug>TComment_<c-_><space> :TComment 
-inoremap <Plug>TComment_<c-_><space> <c-o>:TComment 
-inoremap <Plug>TComment_<c-_>r <c-o>:TCommentRight<cr>
-noremap <Plug>TComment_<c-_>r :TCommentRight<cr>
-vnoremap <Plug>TComment_<c-_>i :TCommentInline<cr>
-noremap <Plug>TComment_<c-_>i v:TCommentInline mode=I#<cr>
-inoremap <Plug>TComment_<c-_>i <c-\><c-o>v:TCommentInline mode=#<cr>
-noremap <Plug>TComment_<c-_>b :TCommentBlock<cr>
-inoremap <Plug>TComment_<c-_>b <c-\><c-o>:TCommentBlock mode=#<cr>
-noremap <Plug>TComment_<c-_>a :TCommentAs 
-inoremap <Plug>TComment_<c-_>a <c-o>:TCommentAs 
-noremap <Plug>TComment_<c-_>n :TCommentAs <c-r>=&ft<cr> 
-inoremap <Plug>TComment_<c-_>n <c-o>:TCommentAs <c-r>=&ft<cr> 
-noremap <Plug>TComment_<c-_>s :TCommentAs <c-r>=&ft<cr>_
-inoremap <Plug>TComment_<c-_>s <c-o>:TCommentAs <c-r>=&ft<cr>_
-noremap <Plug>TComment_<c-_>cc :<c-u>call tcomment#SetOption("count", v:count1)<cr>
-noremap <Plug>TComment_<c-_>ca :<c-u>call tcomment#SetOption("as", input("Comment as: ", &filetype, "customlist,tcomment#complete#Complete"))<cr>
+if g:tcomment_maps
+    noremap <Plug>TComment_<c-_><c-_> :TComment<cr>
+    vnoremap <Plug>TComment_<c-_><c-_> :TCommentMaybeInline<cr>
+    inoremap <Plug>TComment_<c-_><c-_> <c-o>:TComment<cr>
+    noremap <Plug>TComment_<c-_>p m`vip:TComment<cr>``
+    inoremap <Plug>TComment_<c-_>p <c-o>:norm! m`vip<cr>:TComment<cr><c-o>``
+    noremap <Plug>TComment_<c-_><space> :TComment
+    inoremap <Plug>TComment_<c-_><space> <c-o>:TComment
+    inoremap <Plug>TComment_<c-_>r <c-o>:TCommentRight<cr>
+    noremap <Plug>TComment_<c-_>r :TCommentRight<cr>
+    vnoremap <Plug>TComment_<c-_>i :TCommentInline<cr>
+    noremap <Plug>TComment_<c-_>i v:TCommentInline mode=I#<cr>
+    inoremap <Plug>TComment_<c-_>i <c-\><c-o>v:TCommentInline mode=#<cr>
+    noremap <Plug>TComment_<c-_>b :TCommentBlock<cr>
+    inoremap <Plug>TComment_<c-_>b <c-\><c-o>:TCommentBlock mode=#<cr>
+    noremap <Plug>TComment_<c-_>a :TCommentAs
+    inoremap <Plug>TComment_<c-_>a <c-o>:TCommentAs
+    noremap <Plug>TComment_<c-_>n :TCommentAs <c-r>=&ft<cr>
+    inoremap <Plug>TComment_<c-_>n <c-o>:TCommentAs <c-r>=&ft<cr>
+    noremap <Plug>TComment_<c-_>s :TCommentAs <c-r>=&ft<cr>_
+    inoremap <Plug>TComment_<c-_>s <c-o>:TCommentAs <c-r>=&ft<cr>_
+    noremap <Plug>TComment_<c-_>cc :<c-u>call tcomment#SetOption("count", v:count1)<cr>
+    noremap <Plug>TComment_<c-_>ca :<c-u>call tcomment#SetOption("as", input("Comment as: ", &filetype, "customlist,tcomment#complete#Complete"))<cr>
 
-noremap <Plug>TComment_<Leader>__ :TComment<cr>
-xnoremap <Plug>TComment_<Leader>__ :TCommentMaybeInline<cr>
-noremap <Plug>TComment_<Leader>_p vip:TComment<cr>
-noremap <Plug>TComment_<Leader>_<space> :TComment 
-xnoremap <Plug>TComment_<Leader>_i :TCommentInline<cr>
-noremap <Plug>TComment_<Leader>_r :TCommentRight<cr>
-noremap <Plug>TComment_<Leader>_b :TCommentBlock<cr>
-noremap <Plug>TComment_<Leader>_a :TCommentAs 
-noremap <Plug>TComment_<Leader>_n :TCommentAs <c-r>=&ft<cr> 
-noremap <Plug>TComment_<Leader>_s :TCommentAs <c-r>=&ft<cr>_
+    noremap <Plug>TComment_<Leader>__ :TComment<cr>
+    xnoremap <Plug>TComment_<Leader>__ :TCommentMaybeInline<cr>
+    noremap <Plug>TComment_<Leader>_p vip:TComment<cr>
+    noremap <Plug>TComment_<Leader>_<space> :TComment
+    xnoremap <Plug>TComment_<Leader>_i :TCommentInline<cr>
+    noremap <Plug>TComment_<Leader>_r :TCommentRight<cr>
+    noremap <Plug>TComment_<Leader>_b :TCommentBlock<cr>
+    noremap <Plug>TComment_<Leader>_a :TCommentAs
+    noremap <Plug>TComment_<Leader>_n :TCommentAs <c-r>=&ft<cr>
+    noremap <Plug>TComment_<Leader>_s :TCommentAs <c-r>=&ft<cr>_
+endif
 
 
 function! s:MapOpPlug(name, extra, op, invoke) "{{{3
